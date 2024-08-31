@@ -1,8 +1,10 @@
+import os.path
+
 import PyPDF2
 import re
 
 
-def extract_text_from_pdf(pdf_path, save_path):
+def extract_text_from_pdf(pdf_path):
     # Load the PDF file
     pdf_file = open(pdf_path, 'rb')
 
@@ -29,6 +31,9 @@ def extract_text_from_pdf(pdf_path, save_path):
     else:
         print("No durations found.")
 
+    save_path = os.path.join(os.path.dirname(pdf_path), os.path.basename(pdf_path) + '.txt')
+    # Save the extracted text to a text file
     with open(save_path, 'w') as file:
         file.write("\n".join(['Working Hours'] + full_durations))
     print(f"Extracted text saved to: {save_path}")
+    return save_path
