@@ -20,13 +20,13 @@ pdf_file.close()
 # Regular expression to match durations like "8:30H", "9:00H", and "8H"
 duration_pattern = r'\b\d{1,2}(:\d{2})?H\b'
 
-# Extract all occurrences of the duration pattern
-durations = re.findall(duration_pattern, extracted_text)
+# Correct the regex to capture the full match
+full_durations = re.findall(r'\b\d{1,2}:\d{2}H\b|\b\d{1,2}H\b', extracted_text)
 
 # Print the extracted durations
-if durations:
+if full_durations:
     print("Extracted Durations:")
-    for duration in durations:
+    for duration in full_durations:
         print(duration)
 else:
     print("No durations found.")
