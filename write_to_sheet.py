@@ -47,10 +47,3 @@ def write_to_sheet(spreadsheet_id, values, sheet_name='Sheet1', column='B'):
         return error
 
 
-if __name__ == "__main__":
-    spreadsheet_id = '1e39iKmA1lWhW7GpA59O7Q0z2tFkEDNhpR5PL7T9jf84'
-    filename = 'C:/Users/omara/Downloads/Phone Link/Working Hours.txt'  # Replace with the actual path to your text file
-    sheet_name = 'Aug'  # Replace with the actual sheet name you want to append to
-
-    values = read_from_file(filename)
-    write_to_sheet(spreadsheet_id, values, sheet_name)

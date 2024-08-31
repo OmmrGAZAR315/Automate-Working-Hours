@@ -1,37 +1,11 @@
-import PyPDF2
-import re
+import working_hours
+import write_to_sheet
 
-# Load the PDF file
-pdf_path = "C:/Users/omara/Downloads/Phone Link/Working Hours.pdf"  # Replace with the actual path to your PDF file
-pdf_file = open(pdf_path, 'rb')
-
-# Create a PDF reader object
-pdf_reader = PyPDF2.PdfReader(pdf_file)
-
-# Extract text from each page
-extracted_text = ""
-for page_num in range(len(pdf_reader.pages)):
-    page = pdf_reader.pages[page_num]
-    extracted_text += page.extract_text() + "\n"
-
-# Close the PDF file
-pdf_file.close()
-
-# Regular expression to match durations like "8:30H", "9:00H", and "8H"
-duration_pattern = r'\b\d{1,2}(:\d{2})?H\b'
-
-# Correct the regex to capture the full match
-full_durations = re.findall(r'\b\d{1,2}:\d{2}H\b|\b\d{1,2}H\b', extracted_text)
-
-# Print the extracted durations
-if full_durations:
-    print("Extracted Durations:")
-    for index, duration in enumerate(full_durations):
-        print(f"Index: {index+1}, Duration: {duration}")
-else:
-    print("No durations found.")
-
+pdf_path = "C:/Users/omara/Downloads/Phone Link/Working Hours.pdf"
 save_path = "C:/Users/omara/Downloads/Phone Link/Working Hours.txt"
-with open(save_path, 'w') as file:
-    file.write("\n".join(full_durations))
-print(f"Extracted text saved to: {full_durations}")
+spreadsheet_id = '1e39iKmA1lWhW7GpA59O7Q0z2tFkEDNhpR5PL7T9jf84'
+sheet_name = 'Aug'  # Replace with the actual sheet name you want to append to
+
+working_hours.extract_text_from_pdf(pdf_path, save_path)
+values = write_to_sheet.read_from_file(save_path)
+write_to_sheet.write_to_sheet(spreadsheet_id, values, sheet_name)
