@@ -3,8 +3,6 @@ import setAccessToken
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
-# ... (rest of your imports and the create function remain the same)
-
 def read_from_file(filename):
     """
     Reads data from the specified text file.
@@ -16,7 +14,7 @@ def read_from_file(filename):
 
 def write_to_sheet(spreadsheet_id, values, sheet_name='Sheet1', column='B'):
     """
-    Writes the given values to the specified column of the given sheet in the spreadsheet.
+    Updates the specified column of the given sheet in the spreadsheet with the given values.
     Each sublist in 'values' represents a row in the spreadsheet.
     """
 
@@ -33,20 +31,21 @@ def write_to_sheet(spreadsheet_id, values, sheet_name='Sheet1', column='B'):
         # Adjust the range to specify the desired sheet and column
         range_ = f'{sheet_name}!{column}:{column}'
 
-        result = service.spreadsheets().values().append(
+        result = service.spreadsheets().values().update(
             spreadsheetId=spreadsheet_id,
             range=range_,
             valueInputOption='RAW',
-            insertDataOption='INSERT_ROWS',
             body=body
         ).execute()
 
-        print(f"{result.get('updates').get('updatedCells')} cells appended.")
+        print(f"{result.get('updatedCells')} cells updated.")
+
         return result
 
     except HttpError as error:
         print(f"An error occurred: {error}")
         return error
+
 
 if __name__ == "__main__":
     spreadsheet_id = '1e39iKmA1lWhW7GpA59O7Q0z2tFkEDNhpR5PL7T9jf84'
