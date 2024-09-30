@@ -21,7 +21,7 @@ def extract_text_from_pdf(pdf_path):
     pdf_file.close()
 
     # Correct the regex to capture the full match
-    full_durations = re.findall(r'\b\d{1,2}:\d{2}H\b|\b\d{1,2}H\b', extracted_text)
+    full_durations = re.findall(r'\b\d{1,2}:\d{2}H\b', extracted_text)
 
     # Print the extracted durations
     if full_durations:

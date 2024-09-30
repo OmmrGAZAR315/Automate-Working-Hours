@@ -12,7 +12,7 @@ def main():
     workPlacePath = input("Enter the path where you want to save the PDF and txt file: ")
 
     # save_path = input("Enter the path where you want to save the extracted text: ")
-    sheet_name = input('Enter the sheet name ')  # Replace with the actual sheet name you want to append to
+    sheet_name = input('Enter the sheet name: ')  # Replace with the actual sheet name you want to append to
 
     if workPlacePath == "":
         workPlacePath = "C:/Users/omara/Downloads/Phone Link/"
